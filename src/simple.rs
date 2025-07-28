@@ -1,23 +1,19 @@
+use crate::phasedpauli::PhasedPauliEnum;
 use egg::*;
 
 define_language! {
     enum PauliLanguage{
-        "X" = X,
-        "Y" = Y,
-        "Z" = Z,
-        "I" = I,
+        PhasedPauli(PhasedPauliEnum),
         "*" = Mul([Id; 2]),
     }
 }
 
 fn make_rules() -> Vec<Rewrite<PauliLanguage, ()>> {
     vec![
-        rewrite!("XZ rule"; "(* X Z)" => "Y"),
-        // rewrite!("commute-add"; "(+ ?a ?b)" => "(+ ?b ?a)"),
-        // rewrite!("commute-mul"; "(* ?a ?b)" => "(* ?b ?a)"),
-        // rewrite!("add-0"; "(+ ?a 0)" => "?a"),
-        // rewrite!("mul-0"; "(* ?a 0)" => "0"),
-        // rewrite!("mul-1"; "(* ?a 1)" => "?a"),
+        rewrite!("Identity Multiplication"; "(* ?a I)" => "?a"),
+        rewrite!("Identity Commutes"; "(* I ?a)" => "(* ?a I)"),
+        rewrite!("XZ rule"; "(* X Z)" => "-imY"),
+        rewrite!("Unipotency"; "(* ?a ?a)" => "I"),
     ]
 }
 

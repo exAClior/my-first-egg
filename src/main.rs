@@ -1,10 +1,9 @@
-use simple::simplify;
-
-pub mod simple;
+use crate::lib::simple::simplify;
 
 fn main() {
     println!("Hello, world!");
     simplify("(* I (* X Z))");
+    simplify("(* Z Z)");
     // assert_eq!(simplify("(* 0 42)"), "0");
     // assert_eq!(simplify("(+ 0 (* 1 foo))"), "foo");
     // simplify("(+ (* foo (+ 1 x)) (* 10 (* foo (+ 1 x))))");
